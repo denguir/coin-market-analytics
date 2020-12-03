@@ -1,0 +1,8 @@
+numpy
+pandas
+beautifulsoup4
+python-binance
+slackclient==1.0.7
+dateparser==1.0.0
+fake-useragent==0.1.11
+
