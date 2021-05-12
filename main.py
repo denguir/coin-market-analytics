@@ -5,6 +5,7 @@ import pandas as pd
 import strategies
 import os
 
+FILE = os.path.realpath(__file__)
 
 if __name__ == '__main__':
     from_days = 0  # parse events from (relative to now)
@@ -36,8 +37,8 @@ if __name__ == '__main__':
 
     # Save new events table on event database
     date_from = datetime.strptime(date_from, '%d/%m/%Y').strftime('%Y-%m-%d')
-    prev_events = pd.read_csv('./history/events.csv')
+    prev_events = pd.read_csv(os.path.join(FILE, '/history/events.csv'))
     prev_events = prev_events[prev_events['eventDate'] < date_from]
     new_events = events.append(prev_events, ignore_index=True).reset_index(drop=True)
     new_events = new_events.sort_values(by=['eventDate', 'coin', 'votes'], ascending=[True, True, False])
-    new_events.to_csv('./history/events.csv', index=False)
+    new_events.to_csv(os.path.join(FILE, '/history/events.csv'), index=False)
