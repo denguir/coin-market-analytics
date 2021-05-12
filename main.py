@@ -22,7 +22,7 @@ if __name__ == '__main__':
     slack_client = SlackClient(os.environ['SLACK_CRYPTO_EVENTS'])
     date_to_slack = (datetime.now() + timedelta(days=to_days_slack)).strftime('%Y-%m-%d')
     strat_df = events[events['eventDate'] < date_to_slack]
-    strat_df = strategies.get_positive_events(events).reset_index(drop=True)
+    strat_df = strategies.get_positive_events(strat_df).reset_index(drop=True)
 
     slack_client.api_call(
                     "chat.postMessage",
