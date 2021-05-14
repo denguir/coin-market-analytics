@@ -1,3 +1,4 @@
+#!/bin/sh
 
 python3 /home/coin-market-analytics/main.py
 git -C /home/coin-market-analytics pull origin master
