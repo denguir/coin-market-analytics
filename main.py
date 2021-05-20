@@ -9,7 +9,7 @@ import os
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 if __name__ == '__main__':
-    from_days = 0  # parse events from (relative to now)
+    from_days = -30  # parse events from (relative to now)
     to_days = 180 #  parse events until (relative to now)
     to_days_slack = 32 # display events until (relative to now)
     today = datetime.now().strftime('%d/%m/%Y')
