@@ -11,6 +11,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 if __name__ == '__main__':
     from_days = -30  # parse events from (relative to now)
     to_days = 180 #  parse events until (relative to now)
+    from_days_slack = 0 
     to_days_slack = 32 # display events until (relative to now)
     today = datetime.now().strftime('%d/%m/%Y')
     date_from = (datetime.now() + timedelta(days=from_days)).strftime('%d/%m/%Y')
@@ -21,8 +22,9 @@ if __name__ == '__main__':
     
     # Apply your strategy to keep only interesting events on Slack
     slack_client = SlackClient(os.environ['SLACK_CRYPTO_EVENTS'])
+    date_from_slack = (datetime.now() + timedelta(days=from_days_slack)).strftime('%Y-%m-%d')
     date_to_slack = (datetime.now() + timedelta(days=to_days_slack)).strftime('%Y-%m-%d')
-    strat_df = events[events['eventDate'] < date_to_slack]
+    strat_df = events[events['eventDate'].between(date_from_slack, date_to_slack)]
     strat_df = strategies.get_positive_events(strat_df).reset_index(drop=True)
 
     slack_client.api_call(
