@@ -3,10 +3,12 @@ from event_scrapper import get_events_table
 from datetime import datetime, timedelta
 import pandas as pd
 import strategies
+import sys
 import os
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+SLACK_SECRET = sys.argv[1]
 
 if __name__ == '__main__':
     from_days = -30  # parse events from (relative to now)
@@ -21,7 +23,7 @@ if __name__ == '__main__':
     events = get_events_table(date_from, date_to)
     
     # Apply your strategy to keep only interesting events on Slack
-    slack_client = SlackClient(os.environ['SLACK_CRYPTO_EVENTS'])
+    slack_client = SlackClient(SLACK_SECRET)
     date_from_slack = (datetime.now() + timedelta(days=from_days_slack)).strftime('%Y-%m-%d')
     date_to_slack = (datetime.now() + timedelta(days=to_days_slack)).strftime('%Y-%m-%d')
     strat_df = events[events['eventDate'].between(date_from_slack, date_to_slack)]
