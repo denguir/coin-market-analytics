@@ -22,6 +22,3 @@ if __name__ == '__main__':
     new_events = events.append(prev_events, ignore_index=True).reset_index(drop=True)
     new_events = new_events.sort_values(by=['eventDate', 'coin', 'votes'], ascending=[True, True, False])
     new_events.to_csv(os.path.join(ROOT_DIR, 'history/events.csv'), index=False)
-    
-    a = 17/0
-    print(a)
